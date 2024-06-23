@@ -47,6 +47,7 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
+        "phpcsfixer" : "./vendor/bin/php-cs-fixer fix src --verbose --show-progress=dots --config=./config-cs.php",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
@@ -68,6 +69,9 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.60"
+        "friendsofphp/php-cs-fixer": "^3.0.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "fakerphp/faker": "^1.23",
+        "symfony/maker-bundle": "^1.59"
     }
 }
