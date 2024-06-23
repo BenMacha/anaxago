@@ -11,8 +11,11 @@ use Doctrine\ORM\Mapping\Column;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 #[ORM\Index(name: 'FK__TASK__USER_ID', columns: ['user_id'])]
+#[ORM\HasLifecycleCallbacks]
 class Task
 {
+
+    use TimestampedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

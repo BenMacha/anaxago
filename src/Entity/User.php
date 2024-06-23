@@ -13,8 +13,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'KEY_UNIQUE_USER_FILED', fields: ['email'])]
 #[ORM\Index(name: 'PRIMARY_KEY_USER_ID', columns: ['id'])]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+    use TimestampedTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
