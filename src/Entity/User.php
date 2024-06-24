@@ -16,31 +16,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     use TimestampedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(type: Types::STRING,length: 25, nullable: false)]
-    private ?string $firstName = null;
+    protected ?int $id = null;
 
     #[ORM\Column(type: Types::STRING, length: 25, nullable: false)]
-    private ?string $lastName = null;
+    protected ?string $firstName = null;
+
+    #[ORM\Column(type: Types::STRING, length: 25, nullable: false)]
+    protected ?string $lastName = null;
 
     #[ORM\Column(type: Types::STRING, length: 25, nullable: false, unique: true)]
-    private ?string $email = null;
+    protected ?string $email = null;
 
     #[ORM\Column(type: Types::JSON, nullable: false)]
-    private array $roles = [];
+    protected array $roles = [];
 
     #[ORM\Column(type: Types::STRING, length: 180, nullable: false)]
-    private ?string $password = null;
+    protected ?string $password = null;
 
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'user')]
-    private $tasks;
+    protected $tasks;
 
     public function __construct()
     {
@@ -119,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        //$this->plainPassword = null;
+        // $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string

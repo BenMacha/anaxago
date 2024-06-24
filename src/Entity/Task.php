@@ -3,36 +3,38 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 #[ORM\Index(name: 'FK__TASK__USER_ID', columns: ['user_id'])]
 #[ORM\HasLifecycleCallbacks]
 class Task
 {
-
     use TimestampedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[Column]
+    protected ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: false)]
-    private ?string $title = null;
+    #[Assert\NotBlank]
+    #[Column(length: 255, nullable: false)]
+    protected ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
-    private ?string $description = null;
+    #[Assert\NotBlank]
+    #[Column(type: Types::TEXT, nullable: false)]
+    protected ?string $description = null;
 
-    #[ORM\Column(type: Types::STRING, enumType: Status::class, nullable: false)]
-    private Status $status;
+    #[Assert\NotBlank]
+    #[Column(type: Types::STRING, enumType: Status::class, nullable: false)]
+    protected ?Status $status;
 
+    #[Assert\NotBlank]
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
-    private User $user;
+    protected ?User $user;
 
     public function getId(): ?int
     {
@@ -86,5 +88,4 @@ class Task
 
         return $this;
     }
-
 }
